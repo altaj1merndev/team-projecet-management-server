@@ -8,7 +8,7 @@ const router = Router();
 
 router.post(
   '/:folder',
-  auth(USER_ROLE.ADMIN, USER_ROLE.EMPLOYEE, USER_ROLE.MENAGER, USER_ROLE.TEAM_LEADER, USER_ROLE.TEAM_MEMBER ),
+  auth(USER_ROLE.ADMIN, USER_ROLE.EMPLOYEE,  USER_ROLE.TEAM_LEADER, USER_ROLE.TEAM_MEMBER ),
   upload.array('file'),
   UploadImageControllers.uploadMultipleImages,
 );

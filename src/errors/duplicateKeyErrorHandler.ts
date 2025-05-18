@@ -1,4 +1,4 @@
-import { TErrorSources, TGenericErrorResponse } from "../interfaces/errors/errors.intrface";
+import { TErrorSources, TGenericErrorResponse } from "../interfaces/errors/errors.interface";
 
 const duplicateKeyErrorHandler = (err :any): TGenericErrorResponse=>{
     const match = err.message.match(/"([^"]+)"/);

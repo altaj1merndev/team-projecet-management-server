@@ -5,6 +5,8 @@ import { UploadRoutes } from '../modules/uploadImage/upload.images.api';
 import { TeamRoutes } from '../modules/team/team.api';
 import { MemberRoutes } from '../modules/member/member.api';
 import { ProjectRoutes } from '../modules/project/project.api';
+import { ProjectResourceRoutes } from '../modules/projectResource/projectResource.api';
+import { ProjectAssignedPersonRoutes } from '../modules/project-assigned-person/projectAssignedPerson.api';
 
 
 const router = Router();
@@ -29,6 +31,14 @@ const moduleRoutes = [
     {
       path: '/projects',
       route: ProjectRoutes,
+    },
+    {
+      path: '/projects-resources',
+      route: ProjectResourceRoutes,
+    },
+    {
+      path: '/projects-assigned',
+      route: ProjectAssignedPersonRoutes,
     },
     {
       path: '/upload-images',
