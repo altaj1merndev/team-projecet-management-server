@@ -19,15 +19,15 @@ router.post(
 );
 
 
-router.get('/me', auth(USER_ROLE.ADMIN, USER_ROLE.EMPLOYEE, USER_ROLE.MANAGER, USER_ROLE.TEAM_LEADER, USER_ROLE.TEAM_MEMBER ), UserControllers.getMe);
+router.get('/me', auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT, USER_ROLE.OPERTION, USER_ROLE.SELLS ), UserControllers.getMe);
 
-router.get('/', UserControllers.getUsers);
+router.get('/',auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT),  UserControllers.getUsers);
 
-router.get('/:id', UserControllers.getUserDetails);
+router.get('/:id',auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT), UserControllers.getUserDetails);
 
 router.put(
   '/:id',
-  auth(USER_ROLE.ADMIN, USER_ROLE.EMPLOYEE, USER_ROLE.MANAGER, USER_ROLE.TEAM_LEADER, USER_ROLE.TEAM_MEMBER ),
+  auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT, USER_ROLE.OPERTION, USER_ROLE.SELLS ),
   upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
     req.body = JSON.parse(req.body.data);
@@ -38,7 +38,7 @@ router.put(
 
 router.delete(
   '/:id',
-  auth(USER_ROLE.ADMIN),
+  auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT,),
   UserControllers.deleteUser,
 );
 

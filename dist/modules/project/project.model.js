@@ -43,12 +43,17 @@ const ProjectSchema = new mongoose_1.Schema({
     assignedBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
     leadBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
     deliveryDate: { type: String, required: true },
-    platfrom: { type: String },
+    platform: {
+        type: String,
+        enum: ['Fiverr', 'Upwork'],
+        required: true,
+    },
     marketingProfile: { type: String },
     projectStatus: {
         type: String,
-        enum: ['pending', 'in_progress', 'completed', 'on_hold'],
-        default: 'pending'
+        enum: ['NRI', 'WIP', 'Hold', 'Cancel'],
+        required: true,
+        default: 'NRI'
     },
     orderSheet: { type: String },
     specialNote: { type: String }

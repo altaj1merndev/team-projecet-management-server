@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 export interface IMarketingProfile extends Document {
     profileName: string;
     profileUsername: string;
-    platform: string;
+    platform: "Fiverr"| "Upwork";
     profileUrl: string;
-    status: 'active' | 'inactive'; // You can add more options if needed
+    status: 'Active' | 'Deactivate'; 
     addBy: mongoose.Types.ObjectId;
   }
   

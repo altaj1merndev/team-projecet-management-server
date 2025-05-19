@@ -39,7 +39,7 @@ const auth = (...requiredRoles) => {
             throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'This user is deleted');
         }
         //   // check if user is blocked
-        if ((user === null || user === void 0 ? void 0 : user.userStatus) === 'suspicious') {
+        if ((user === null || user === void 0 ? void 0 : user.userStatus) === 'Deactivate') {
             throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'This user is blocked');
         }
         //   // check if the user is authorized for this task/operation

@@ -45,7 +45,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
       }
 
       //   // check if user is blocked
-      if (user?.userStatus === 'suspicious') {
+      if (user?.userStatus === 'Deactivate') {
         throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked');
       }
 

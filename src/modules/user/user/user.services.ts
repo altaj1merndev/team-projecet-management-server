@@ -15,7 +15,7 @@ const registerUser = async (payload: TUser, image: any) => {
 
   if (payload?.role) {
     userData.role = payload.role;
-    if (payload.role === 'admin') {
+    if (payload.role === 'Admin') {
       userData.userStatus = 'permanent';
     }
   }

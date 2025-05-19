@@ -36,7 +36,7 @@ const registerUser = (payload, image) => __awaiter(void 0, void 0, void 0, funct
     const userData = Object.assign({}, remaining);
     if (payload === null || payload === void 0 ? void 0 : payload.role) {
         userData.role = payload.role;
-        if (payload.role === 'admin') {
+        if (payload.role === 'Admin') {
             userData.userStatus = 'permanent';
         }
     }

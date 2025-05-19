@@ -8,7 +8,7 @@ const router = Router();
 // ✅ Create a new team (admin, manager only)
 router.post(
   '/',
-  // auth(USER_ROLE.ADMIN, USER_ROLE.MANAGER),
+  auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT),
   TeamController.createTeam
 );
 
@@ -19,12 +19,12 @@ router.get('/', TeamController.getAllTeams);
 router.get('/:slug', TeamController.getTeamBySlug);
 
 // ✅ Get all teams led by a specific team lead
-router.get('/lead/:teamLeadId', auth(USER_ROLE.ADMIN, USER_ROLE.MANAGER), TeamController.getTeamsByTeamLead);
+router.get('/lead/:teamLeadId',  auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT), TeamController.getTeamsByTeamLead);
 
 // ✅ Update a team using slug
 router.put(
   '/:slug',
-  auth(USER_ROLE.ADMIN, USER_ROLE.MANAGER),
+ auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT),
   TeamController.updateTeam
 );
 

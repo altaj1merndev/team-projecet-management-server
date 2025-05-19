@@ -9,6 +9,9 @@ const member_api_1 = require("../modules/member/member.api");
 const project_api_1 = require("../modules/project/project.api");
 const projectResource_api_1 = require("../modules/projectResource/projectResource.api");
 const projectAssignedPerson_api_1 = require("../modules/project-assigned-person/projectAssignedPerson.api");
+const projectIssues_api_1 = require("../modules/project-issues/projectIssues.api");
+const marketingProfile_api_1 = require("../modules/marketing-profile/marketingProfile.api");
+const projectMessage_api_1 = require("../modules/project-message/projectMessage.api");
 const router = (0, express_1.Router)();
 const moduleRoutes = [
     {
@@ -38,6 +41,18 @@ const moduleRoutes = [
     {
         path: '/projects-assigned',
         route: projectAssignedPerson_api_1.ProjectAssignedPersonRoutes,
+    },
+    {
+        path: '/marketing-profile',
+        route: marketingProfile_api_1.MarketingProfileRoutes,
+    },
+    {
+        path: '/projects-issues',
+        route: projectIssues_api_1.ProjectIssueRoutes,
+    },
+    {
+        path: '/projects-messages',
+        route: projectMessage_api_1.ProjectMessageRoutes,
     },
     {
         path: '/upload-images',

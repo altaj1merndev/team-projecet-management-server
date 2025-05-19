@@ -48,13 +48,13 @@ const MemberSchema = new mongoose_1.Schema({
     },
     memberType: {
         type: String,
-        enum: ['leader', 'member'],
-        default: 'member',
+        enum: ['Leader', 'Member'],
+        default: 'Member',
         required: true
     },
     status: {
         type: String,
-        enum: ['active', 'inactive'],
+        enum: ['Active', 'Deactivate'],
         default: 'active',
         required: true
     }

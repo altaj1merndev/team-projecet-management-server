@@ -1,8 +1,8 @@
 import mongoose, { Model } from 'mongoose';
 
-type TUserStatus = 'intern' | 'profession' | 'permanent'| "suspicious";
+type TUserStatus = 'Active' | 'Deactivate' 
 
-type TRole = 'admin' | 'employee' | 'manager'| "teamLeader"| 'teamMember'| "seller"; 
+type TRole = 'Admin' | 'Management' | 'Sells'| "Operation"
 
 export type TContact = {
   address: string;
@@ -16,7 +16,7 @@ export type TUser = {
   userName: string;
   firstName: string;
   lastName: string;
-  employeId: string;
+  employeeId: string;
   email: string;
   password: string;
   phoneNumber: string;

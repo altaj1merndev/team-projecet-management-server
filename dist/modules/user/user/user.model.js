@@ -66,7 +66,7 @@ const userSchema = new mongoose_1.Schema({
         required: [true, 'Please enter your last name'],
         trim: true,
     },
-    employeId: {
+    employeeId: {
         type: String,
         required: [true, 'Please enter employee ID'],
         unique: true,
@@ -102,15 +102,15 @@ const userSchema = new mongoose_1.Schema({
     },
     role: {
         type: String,
-        enum: ['admin', 'employee', 'manager', 'teamLeader', 'teamMember', "seller"],
+        enum: ['Admin', 'Management', 'Sells', 'Operation',],
         required: true,
-        default: 'employee',
+        default: 'Operation',
     },
     userStatus: {
         type: String,
-        enum: ['intern', 'profession', 'permanent'],
+        enum: ['Active', 'Deactivate',],
         required: true,
-        default: 'intern',
+        default: 'Active',
     },
     // team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team', required: true },
     // teamLead: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

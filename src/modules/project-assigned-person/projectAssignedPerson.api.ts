@@ -5,11 +5,11 @@ import { ProjectAssignedPersonController } from './projectAssignedPerson.control
 
 const router = Router();
 
-router.post('/',auth(USER_ROLE.ADMIN, USER_ROLE.MANAGER),  ProjectAssignedPersonController.createAssignedPerson);
+router.post('/',auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT),  ProjectAssignedPersonController.createAssignedPerson);
 router.get('/', ProjectAssignedPersonController.getAllAssignedPersons);
 router.get('/:id', ProjectAssignedPersonController.getAssignedPersonById);
 router.get('/project/:projectId', ProjectAssignedPersonController.getAssignedPersonsByProjectId);
-router.put('/:id', auth(USER_ROLE.ADMIN, USER_ROLE.MANAGER), ProjectAssignedPersonController.updateAssignedPerson);
-router.delete('/:id', auth(USER_ROLE.ADMIN), ProjectAssignedPersonController.deleteAssignedPerson);
+router.put('/:id', auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT), ProjectAssignedPersonController.updateAssignedPerson);
+router.delete('/:id', auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT), ProjectAssignedPersonController.deleteAssignedPerson);
 
 export const ProjectAssignedPersonRoutes = router;

@@ -7,6 +7,9 @@ import { MemberRoutes } from '../modules/member/member.api';
 import { ProjectRoutes } from '../modules/project/project.api';
 import { ProjectResourceRoutes } from '../modules/projectResource/projectResource.api';
 import { ProjectAssignedPersonRoutes } from '../modules/project-assigned-person/projectAssignedPerson.api';
+import { ProjectIssueRoutes } from '../modules/project-issues/projectIssues.api';
+import { MarketingProfileRoutes } from '../modules/marketing-profile/marketingProfile.api';
+import { ProjectMessageRoutes } from '../modules/project-message/projectMessage.api';
 
 
 const router = Router();
@@ -39,6 +42,18 @@ const moduleRoutes = [
     {
       path: '/projects-assigned',
       route: ProjectAssignedPersonRoutes,
+    },
+    {
+      path: '/marketing-profile',
+      route: MarketingProfileRoutes,
+    },
+    {
+      path: '/projects-issues',
+      route: ProjectIssueRoutes,
+    },
+    {
+      path: '/projects-messages',
+      route: ProjectMessageRoutes,
     },
     {
       path: '/upload-images',

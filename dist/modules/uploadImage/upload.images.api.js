@@ -10,5 +10,5 @@ const auth_constants_1 = require("../user/auth/auth.constants");
 const upload_image_controller_1 = require("./upload.image.controller");
 const sendImageToCloudinary_1 = require("../../utils/lib/sendImageToCloudinary");
 const router = (0, express_1.Router)();
-router.post('/:folder', (0, auth_1.default)(auth_constants_1.USER_ROLE.ADMIN, auth_constants_1.USER_ROLE.EMPLOYEE, auth_constants_1.USER_ROLE.TEAM_LEADER, auth_constants_1.USER_ROLE.TEAM_MEMBER), sendImageToCloudinary_1.upload.array('file'), upload_image_controller_1.UploadImageControllers.uploadMultipleImages);
+router.post('/:folder', (0, auth_1.default)(auth_constants_1.USER_ROLE.ADMIN, auth_constants_1.USER_ROLE.MANAGEMENT, auth_constants_1.USER_ROLE.OPERTION, auth_constants_1.USER_ROLE.SELLS), sendImageToCloudinary_1.upload.array('file'), upload_image_controller_1.UploadImageControllers.uploadMultipleImages);
 exports.UploadRoutes = router;

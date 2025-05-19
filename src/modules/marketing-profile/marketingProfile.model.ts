@@ -4,12 +4,15 @@ import { IMarketingProfile } from "./marketingProfile.interface";
   const MarketingProfileSchema: Schema = new Schema({
     profileName: { type: String, required: true },
     profileUsername: { type: String, required: true },
-    platform: { type: String, required: true }, // e.g., 'Facebook', 'Instagram'
+    platform: { type: String, 
+      enum: ['Fiverr', 'Upwork'],
+      default: 'Fiverr',
+      required: true }, 
     profileUrl: { type: String, required: true },
     status: {
       type: String,
-      enum: ['active', 'inactive'],
-      default: 'active',
+      enum: ['Active', 'Deactivate'],
+      default: 'Active',
       required: true
     },
     addBy: {

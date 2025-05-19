@@ -1,7 +1,6 @@
 export const USER_ROLE = {
-  ADMIN: 'admin',
-  EMPLOYEE: 'employee',
-  MANAGER: 'manager',
-  TEAM_LEADER: 'teamLeader',
-  TEAM_MEMBER: 'teamMember',
+  ADMIN: 'Admin',
+  MANAGEMENT: 'Management',
+  SELLS: 'Sells',
+  OPERTION: 'Operation',
 };

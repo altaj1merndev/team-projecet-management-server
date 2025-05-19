@@ -6,9 +6,9 @@ export interface IProject extends Document {
     assignedTeam: string[]; 
     leadBy: string; 
     deliveryDate: string;
-    platfrom: string;
+    platfrom: "Fiverr"| "Upwork"
     marketingProfile: string;
-    projectStatus: 'pending' | 'in_progress' | 'completed' | 'on_hold'; 
+    projectStatus: 'NRI' | 'WIP' | 'Hold' | 'Cancel'; 
     orderSheet: string;
     specialNote: string;
   }

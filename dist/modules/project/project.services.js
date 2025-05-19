@@ -25,7 +25,7 @@ const createProject = (payload) => __awaiter(void 0, void 0, void 0, function* (
     if (!sellsByUser) {
         throw new AppError_1.default(404, 'SellsBy user not found!');
     }
-    if (sellsByUser.role !== "seller") {
+    if (sellsByUser.role !== "Sells") {
         throw new AppError_1.default(400, 'SellsBy user must have the role "seller"!');
     }
     // Validate assignedBy
@@ -33,7 +33,7 @@ const createProject = (payload) => __awaiter(void 0, void 0, void 0, function* (
     if (!assignedByUser) {
         throw new AppError_1.default(404, 'AssignedBy user not found!');
     }
-    if (assignedByUser.role !== "manager" && assignedByUser.role !== "admin") {
+    if (assignedByUser.role !== "Management") {
         throw new AppError_1.default(400, 'AssignedBy user must have the role "manager" or "admin"!');
     }
     // Validate leadBy
@@ -41,7 +41,7 @@ const createProject = (payload) => __awaiter(void 0, void 0, void 0, function* (
     if (!leadByUser) {
         throw new AppError_1.default(404, 'LeadBy user not found!');
     }
-    if (leadByUser.role !== "teamLeader") {
+    if (leadByUser.role !== "Operation") {
         throw new AppError_1.default(400, 'LeadBy user must have the role "teamLeader"!');
     }
     // Validate assignedTeam (if present)

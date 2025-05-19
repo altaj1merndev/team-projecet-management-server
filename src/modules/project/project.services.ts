@@ -12,7 +12,7 @@ const createProject = async (payload: IProject) => {
   if (!sellsByUser) {
     throw new AppError(404, 'SellsBy user not found!');
   }
-  if (sellsByUser.role !== "seller") {
+  if (sellsByUser.role !== "Sells") {
     throw new AppError(400, 'SellsBy user must have the role "seller"!');
   }
 
@@ -21,7 +21,7 @@ const createProject = async (payload: IProject) => {
   if (!assignedByUser) {
     throw new AppError(404, 'AssignedBy user not found!');
   }
-  if (assignedByUser.role !== "manager" && assignedByUser.role !== "admin") {
+  if (assignedByUser.role !== "Management" ) {
     throw new AppError(400, 'AssignedBy user must have the role "manager" or "admin"!');
   }
   // Validate leadBy
@@ -29,7 +29,7 @@ const createProject = async (payload: IProject) => {
   if (!leadByUser) {
     throw new AppError(404, 'LeadBy user not found!');
   }
-  if (leadByUser.role !== "teamLeader") {
+  if (leadByUser.role !== "Operation") {
     throw new AppError(400, 'LeadBy user must have the role "teamLeader"!');
   }
 
