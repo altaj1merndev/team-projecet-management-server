@@ -68,6 +68,9 @@ const forgotPassword = async ({ email }: { email: string }) => {
     id: user._id.toString(),
     email: user.email,
     role: user.role,
+    firstName: user.firstName,
+    lastName: user.lastName,  
+    avatar: user.avatar,
   };
 
   const resetToken = JwtHelpers.createToken(
@@ -138,6 +141,9 @@ console.log({decodedUser})
     id: user._id.toString(),
     role: user.role,
     email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,  
+    avatar: user.avatar,
   };
 
   const accessToken = JwtHelpers.createToken(

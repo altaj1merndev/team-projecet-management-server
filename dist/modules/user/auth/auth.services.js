@@ -44,6 +44,9 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         id: user._id.toString(),
         role: user.role,
         email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        avatar: user.avatar,
     };
     const accessToken = jwt_1.JwtHelpers.createToken(jwtPayloadData, config_1.default.jwt.accessSecret, config_1.default.jwt.accessExpiresIn);
     return {
@@ -61,6 +64,9 @@ const forgotPassword = (_a) => __awaiter(void 0, [_a], void 0, function* ({ emai
         id: user._id.toString(),
         email: user.email,
         role: user.role,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        avatar: user.avatar,
     };
     const resetToken = jwt_1.JwtHelpers.createToken(jwtPayloadData, config_1.default.jwt.accessSecret, '10m');
     yield user.save({ validateBeforeSave: false });
@@ -102,6 +108,9 @@ const resetPassword = (token_1, _a) => __awaiter(void 0, [token_1, _a], void 0, 
         id: user._id.toString(),
         role: user.role,
         email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        avatar: user.avatar,
     };
     const accessToken = jwt_1.JwtHelpers.createToken(jwtPayloadData, config_1.default.jwt.accessSecret, config_1.default.jwt.accessExpiresIn);
     return {

@@ -9,8 +9,8 @@ const TeamSchema: Schema = new Schema(
     teamDescription: { type: String },
     status: {
       type: String,
-      enum: ['active', 'inactive'],
-      default: 'active',
+      enum: ['Active', 'Deactivate'],
+      default: 'Active',
       required: true,
     },
     teamLead: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

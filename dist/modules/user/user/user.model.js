@@ -85,6 +85,10 @@ const userSchema = new mongoose_1.Schema({
         minlength: [8, 'Password must be at least 8 characters'],
         select: false,
     },
+    isPasswordChanged: {
+        type: Boolean,
+        default: false,
+    },
     phoneNumber: {
         type: String,
         required: [true, 'Please enter your phone number'],

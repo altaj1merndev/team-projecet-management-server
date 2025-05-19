@@ -34,12 +34,12 @@ const user_model_1 = require("./user.model");
 const registerUser = (payload, image) => __awaiter(void 0, void 0, void 0, function* () {
     const { avatar } = payload, remaining = __rest(payload, ["avatar"]);
     const userData = Object.assign({}, remaining);
-    if (payload === null || payload === void 0 ? void 0 : payload.role) {
-        userData.role = payload.role;
-        if (payload.role === 'Admin') {
-            userData.userStatus = 'permanent';
-        }
-    }
+    // if (payload?.role) {
+    //   userData.role = payload.role;
+    //   if (!payload.role ) {
+    //     userData.userStatus = 'Active';
+    //   }
+    // }
     if (image) {
         // send image to cloudinary
         const imageName = `${userData === null || userData === void 0 ? void 0 : userData.email}-${new Date()}`;
@@ -94,11 +94,15 @@ const updatePassword = (userId, payload) => __awaiter(void 0, void 0, void 0, fu
         throw new AppError_1.default(400, 'password does not match');
     }
     user.password = payload.newPassword;
+    user.isPasswordChanged = true;
     yield user.save();
     const jwtPayloadData = {
         id: user._id.toString(),
         role: user.role,
         email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        avatar: user.avatar,
     };
     const accessToken = jwt_1.JwtHelpers.createToken(jwtPayloadData, config_1.default.jwt.accessSecret, config_1.default.jwt.accessExpiresIn);
     return {
