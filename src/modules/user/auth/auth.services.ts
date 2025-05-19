@@ -39,6 +39,9 @@ const loginUser = async (payload: TLoginPayloadData) => {
     id: user._id.toString(),
     role: user.role,
     email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    avatar: user.avatar,
   };
 
   const accessToken = JwtHelpers.createToken(
