@@ -13,12 +13,12 @@ const registerUser = async (payload: TUser, image: any) => {
     ...remaining,
   };
 
-  if (payload?.role) {
-    userData.role = payload.role;
-    if (payload.role === 'Admin') {
-      userData.userStatus = 'permanent';
-    }
-  }
+  // if (payload?.role) {
+  //   userData.role = payload.role;
+  //   if (!payload.role ) {
+  //     userData.userStatus = 'Active';
+  //   }
+  // }
 
   if (image) {
     // send image to cloudinary
@@ -109,7 +109,7 @@ const updatePassword = async (userId: string, payload: TChangePassword) => {
   }
 
   user.password = payload.newPassword;
-
+  user.isPasswordChanged = true;
   await user.save();
 
   const jwtPayloadData: TJwtPayload = {

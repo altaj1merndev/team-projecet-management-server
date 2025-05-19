@@ -19,6 +19,7 @@ export type TUser = {
   employeeId: string;
   email: string;
   password: string;
+  isPasswordChanged: boolean;
   phoneNumber: string;
   avatar: string;
   designation: string;
