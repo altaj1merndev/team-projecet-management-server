@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import validator from 'validator';
 import { hashPassword } from '../../../utils/bcrypt/bcryptHelper';
 import { TContact, TUser, UserModel } from './user.interface';
+import config from '../../../config';
 
 
 
@@ -40,6 +41,7 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: [true, 'Please enter your password'],
       minlength: [8, 'Password must be at least 8 characters'],
+      default: config.defaultPass,
       select: false,
     },
     isPasswordChanged: {

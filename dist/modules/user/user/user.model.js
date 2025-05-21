@@ -50,6 +50,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const validator_1 = __importDefault(require("validator"));
 const bcryptHelper_1 = require("../../../utils/bcrypt/bcryptHelper");
+const config_1 = __importDefault(require("../../../config"));
 const userSchema = new mongoose_1.Schema({
     userName: {
         type: String,
@@ -83,6 +84,7 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: [true, 'Please enter your password'],
         minlength: [8, 'Password must be at least 8 characters'],
+        default: config_1.default.defaultPass,
         select: false,
     },
     isPasswordChanged: {

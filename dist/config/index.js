@@ -27,4 +27,5 @@ exports.default = {
     nodemailerUser: process.env.NODEMAILER_USER,
     nodemailerPass: process.env.NODEMAILER_PASS,
     companyName: process.env.COMPANY_NAME,
+    defaultPass: process.env.DEFAULT_PASS,
 };

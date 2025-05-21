@@ -82,10 +82,11 @@ cloudinary.config({
       throw new Error('Failed to upload images.');
     }
   };
-
+const isProd =  process.env.NODE_ENV === 'production';
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      const uploadPath = process.cwd() + '/uploads/';
+      // const uploadPath = process.cwd() + '/uploads/';
+          const uploadPath = isProd ? '/tmp' : process.cwd() + '/uploads';
       // console.log('Multer destination:', uploadPath);
       cb(null, uploadPath);
     },
@@ -96,6 +97,7 @@ cloudinary.config({
       cb(null, filename);
     },
   });
+
 
   export const upload = multer({
     storage: storage,
@@ -117,3 +119,4 @@ cloudinary.config({
   })
 
   export default cloudinary;
+

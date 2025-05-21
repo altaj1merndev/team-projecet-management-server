@@ -78,9 +78,11 @@ folderName) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.sendImagesToCloudinary = sendImagesToCloudinary;
+const isProd = process.env.NODE_ENV === 'production';
 const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
-        const uploadPath = process.cwd() + '/uploads/';
+        // const uploadPath = process.cwd() + '/uploads/';
+        const uploadPath = isProd ? '/tmp' : process.cwd() + '/uploads';
         // console.log('Multer destination:', uploadPath);
         cb(null, uploadPath);
     },
@@ -111,3 +113,107 @@ exports.upload = (0, multer_1.default)({
     }
 });
 exports.default = cloudinary_1.v2;
+// import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+// import config from '../../config';
+// import fs from 'fs';
+// import multer from 'multer';
+// import path from 'path';
+// // Configure Cloudinary
+// cloudinary.config({
+//   cloud_name: config.cloudinaryName,
+//   api_key: config.cloudinaryApiKey,
+//   api_secret: config.cloudinaryApiSecret,
+// });
+// // Upload a single image to Cloudinary
+// export const sendImageToCloudinary = (
+//   imageName: string,
+//   filePath: string,
+//   folderName: string | undefined | null,
+// ): Promise<UploadApiResponse> => {
+//   return new Promise((resolve, reject) => {
+//     cloudinary.uploader.upload(
+//       filePath,
+//       {
+//         public_id: imageName,
+//         folder: folderName || config.cloudinaryImageFolderName,
+//       },
+//       (error, result) => {
+//         // Delete the temp file whether upload succeeds or fails
+//         fs.unlink(filePath, (err) => {
+//           if (err) console.error('Failed to delete temp file:', err);
+//         });
+//         if (error) return reject(error);
+//         resolve(result as UploadApiResponse);
+//       },
+//     );
+//   });
+// };
+// // Upload multiple images or videos to Cloudinary
+// export const sendImagesToCloudinary = async (
+//   images: Express.Multer.File[],
+//   folderName: string | undefined | null,
+// ): Promise<string[]> => {
+//   try {
+//     const uploadPromises = images.map((image) => {
+//       const resourceType = image.mimetype.startsWith('image/') ? 'image' : 'video';
+//       return new Promise<string>((resolve, reject) => {
+//         cloudinary.uploader.upload(
+//           image.path,
+//           {
+//             public_id: path.parse(image.filename).name,
+//             folder: folderName || config.cloudinaryImageFolderName,
+//             resource_type: resourceType,
+//           },
+//           (error, result) => {
+//             // Delete temp file after upload
+//             fs.unlink(image.path, (err) => {
+//               if (err) console.error('Failed to delete temp file:', err);
+//             });
+//             if (error) return reject(error);
+//             resolve(result?.secure_url || '');
+//           },
+//         );
+//       });
+//     });
+//     const results = await Promise.all(uploadPromises);
+//     return results;
+//   } catch (error) {
+//     console.error('Cloudinary Upload Error:', error);
+//     throw new Error('Failed to upload images.');
+//   }
+// };
+// // Multer storage configuration for Vercel
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, '/tmp'); // Vercel-compatible temp directory
+//   },
+//   filename: (req, file, cb) => {
+//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+//     const extension = path.extname(file.originalname);
+//     const filename = file.fieldname + '-' + uniqueSuffix + extension;
+//     cb(null, filename);
+//   },
+// });
+// // Allowed file types
+// const fileFilter = (req: any, file: Express.Multer.File, cb: any) => {
+//   const allowedTypes = [
+//     'image/jpeg',
+//     'image/jpg',
+//     'image/png',
+//     'video/mp4',
+//     'video/webm',
+//     'video/quicktime',
+//   ];
+//   if (allowedTypes.includes(file.mimetype)) {
+//     cb(null, true);
+//   } else {
+//     cb(new Error('Invalid file type. Only images and videos are allowed.'));
+//   }
+// };
+// // Multer middleware export
+// export const upload = multer({
+//   storage,
+//   fileFilter,
+// });
+// // Export cloudinary instance if needed elsewhere
+// export default cloudinary

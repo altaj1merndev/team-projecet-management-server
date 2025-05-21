@@ -22,5 +22,8 @@ router.put('/:id', (0, auth_1.default)(auth_constants_1.USER_ROLE.ADMIN, auth_co
     req.body = JSON.parse(req.body.data);
     next();
 }, user_controllers_1.UserControllers.updateUser);
+router.put('/update-password/:id', 
+// auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT, USER_ROLE.OPERTION, USER_ROLE.SELLS ),
+user_controllers_1.UserControllers.updatePassword);
 router.delete('/:id', (0, auth_1.default)(auth_constants_1.USER_ROLE.ADMIN, auth_constants_1.USER_ROLE.MANAGEMENT), user_controllers_1.UserControllers.deleteUser);
 exports.UserRoutes = router;

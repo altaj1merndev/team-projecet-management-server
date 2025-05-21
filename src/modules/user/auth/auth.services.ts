@@ -97,7 +97,7 @@ const forgotPassword = async ({ email }: { email: string }) => {
 
   // Replacements for the placeholders
   const replacements = {
-    reset_link: `${config.rootUiURL}/auth/reset-password/${resetToken}`,
+    reset_link: `${config.rootUiURL}/set-new-password?token=${resetToken}`,
   };
   const emailContent = replacePlaceholders(emailTemplate, replacements);
 
@@ -109,7 +109,7 @@ const forgotPassword = async ({ email }: { email: string }) => {
     message: emailContent,
   });
 
-  return { reset_link: `${config.rootUiURL}/reset-password/${resetToken}` };
+  return { reset_link: `${config.rootUiURL}/set-new-password?token=${resetToken}` };
 };
 
 // Reset Password

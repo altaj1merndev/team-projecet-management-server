@@ -18,6 +18,7 @@ const AppError_1 = __importDefault(require("../../errors/AppError"));
 const queryBuilder_1 = __importDefault(require("../../utils/queryBuilder"));
 const user_model_1 = require("../user/user/user.model");
 const stringToSlug_1 = require("../../utils/lib/stringToSlug");
+const mongoose_1 = require("mongoose");
 // ✅ Create a new team
 const createTeam = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if the team lead exists
@@ -36,24 +37,6 @@ const createTeam = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 // ✅ Get all teams
-// const getAllTeams = async (query: Record<string, unknown>) => {
-//   const teamQuery = new QueryBuilder(
-//     Team.find().populate('teamLead'),
-//     query
-//   )
-//     .search(['teamName', 'status'])
-//     .filter()
-//     .sort()
-//     .paginate()
-//     .fieldsLimit();
-//   const result = await teamQuery.modelQuery;
-//   const meta = await teamQuery.countTotal();
-//   return {
-//     meta,
-//     data: result,
-//   };
-// };
-const mongoose_1 = require("mongoose");
 const getAllTeams = (query) => __awaiter(void 0, void 0, void 0, function* () {
     const newQuery = {};
     // Direct field filters
@@ -67,19 +50,7 @@ const getAllTeams = (query) => __awaiter(void 0, void 0, void 0, function* () {
         newQuery.completedProjects = new mongoose_1.Types.ObjectId(query.completedProjects);
     if (query === null || query === void 0 ? void 0 : query.assignProjects)
         newQuery.assignProjects = new mongoose_1.Types.ObjectId(query.assignProjects);
-    const populateOptions = [
-        { path: 'teamLead' },
-        { path: 'completedProjects', match: {} },
-        { path: 'assignProjects', match: {} },
-    ];
-    // Filtering nested projects by status
-    if (query === null || query === void 0 ? void 0 : query.completedProjectStatus) {
-        populateOptions[1].match = { projectStatus: query.completedProjectStatus };
-    }
-    if (query === null || query === void 0 ? void 0 : query.assignedProjectStatus) {
-        populateOptions[2].match = { projectStatus: query.assignedProjectStatus };
-    }
-    const teamQuery = new queryBuilder_1.default(team_model_1.Team.find(newQuery).populate(populateOptions), query)
+    const teamQuery = new queryBuilder_1.default(team_model_1.Team.find(newQuery).populate(["teamLead"]), query)
         .search(['teamName', 'status'])
         .filter()
         .sort()

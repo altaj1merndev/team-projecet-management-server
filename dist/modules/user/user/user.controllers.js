@@ -71,7 +71,7 @@ const updatePassword = (0, handleAsyncRequest_1.default)((req, res) => __awaiter
         success: true,
         statusCode: 200,
         message: 'Password is changed successfully!',
-        data: result.user,
+        data: result,
     });
 }));
 // Delete User

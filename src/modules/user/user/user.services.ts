@@ -34,9 +34,11 @@ const registerUser = async (payload: TUser, image: any) => {
     // update profile image in payload
     userData.avatar = secure_url as string;
   }
+console.log({userData})
 
   // Create new user
   const result = await User.create(userData);
+console.log({result})
 
   return result
 };

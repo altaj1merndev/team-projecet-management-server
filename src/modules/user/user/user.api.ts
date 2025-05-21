@@ -1,4 +1,6 @@
-import { NextFunction, Request, Response, Router } from 'express';
+
+
+import express, { NextFunction, Request, Response, Router } from 'express';
 import auth from '../../../middlewares/auth';
 
 import { USER_ROLE } from '../auth/auth.constants';
@@ -35,6 +37,14 @@ router.put(
   },
   UserControllers.updateUser,
 );
+
+router.put(
+  '/update-password/:id',
+  // auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT, USER_ROLE.OPERTION, USER_ROLE.SELLS ),
+  UserControllers.updatePassword,
+);
+
+
 
 router.delete(
   '/:id',

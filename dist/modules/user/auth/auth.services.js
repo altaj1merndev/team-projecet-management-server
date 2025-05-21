@@ -81,7 +81,7 @@ const forgotPassword = (_a) => __awaiter(void 0, [_a], void 0, function* ({ emai
     }
     // Replacements for the placeholders
     const replacements = {
-        reset_link: `${config_1.default.rootUiURL}/auth/reset-password/${resetToken}`,
+        reset_link: `${config_1.default.rootUiURL}/set-new-password?token=${resetToken}`,
     };
     const emailContent = replacePlaceholders(emailTemplate, replacements);
     // const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
@@ -90,7 +90,7 @@ const forgotPassword = (_a) => __awaiter(void 0, [_a], void 0, function* ({ emai
         subject: `${config_1.default.companyName} Password Recovery`,
         message: emailContent,
     });
-    return { reset_link: `${config_1.default.rootUiURL}/reset-password/${resetToken}` };
+    return { reset_link: `${config_1.default.rootUiURL}/set-new-password?token=${resetToken}` };
 });
 // Reset Password
 const resetPassword = (token_1, _a) => __awaiter(void 0, [token_1, _a], void 0, function* (token, { newPassword }) {

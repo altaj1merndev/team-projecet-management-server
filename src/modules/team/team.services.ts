@@ -4,6 +4,7 @@ import QueryBuilder from '../../utils/queryBuilder';
 import { User } from '../user/user/user.model';
 import { ITeam } from './team.interface';
 import { stringToSlug } from '../../utils/lib/stringToSlug';
+import { Types } from 'mongoose';
 
 // ✅ Create a new team
 const createTeam = async (payload: ITeam) => {
@@ -26,27 +27,8 @@ const createTeam = async (payload: ITeam) => {
 };
 
 // ✅ Get all teams
-// const getAllTeams = async (query: Record<string, unknown>) => {
-//   const teamQuery = new QueryBuilder(
-//     Team.find().populate('teamLead'),
-//     query
-//   )
-//     .search(['teamName', 'status'])
-//     .filter()
-//     .sort()
-//     .paginate()
-//     .fieldsLimit();
 
-//   const result = await teamQuery.modelQuery;
-//   const meta = await teamQuery.countTotal();
 
-//   return {
-//     meta,
-//     data: result,
-//   };
-// };
-
-import { Types } from 'mongoose';
 
 const getAllTeams = async (query: Record<string, unknown>) => {
   const newQuery: Record<string, unknown> = {};
@@ -60,22 +42,8 @@ const getAllTeams = async (query: Record<string, unknown>) => {
   if (query?.assignProjects)
     newQuery.assignProjects = new Types.ObjectId(query.assignProjects as string);
 
-  const populateOptions = [
-    { path: 'teamLead' },
-    { path: 'completedProjects', match: {} },
-    { path: 'assignProjects', match: {} },
-  ];
-
-  // Filtering nested projects by status
-  if (query?.completedProjectStatus) {
-    populateOptions[1].match = { projectStatus: query.completedProjectStatus };
-  }
-  if (query?.assignedProjectStatus) {
-    populateOptions[2].match = { projectStatus: query.assignedProjectStatus };
-  }
-
   const teamQuery = new QueryBuilder(
-    Team.find(newQuery).populate(populateOptions),
+    Team.find(newQuery).populate(["teamLead"]),
     query
   )
     .search(['teamName', 'status'])

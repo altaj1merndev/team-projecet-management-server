@@ -4,6 +4,7 @@ import { UserServices } from './user.services';
 import handleAsyncRequest from '../../../utils/share/handleAsyncRequest';
 import { setCookie } from '../../../utils/share/setCookie';
 import sendResponse from '../../../utils/share/sendResponse';
+import AppError from '../../../errors/AppError';
 
 // Register a User
 const registerUser = handleAsyncRequest(async (req: Request, res: Response) => {
@@ -64,17 +65,18 @@ const updateUser = handleAsyncRequest(async (req: Request, res: Response) => {
 const updatePassword = handleAsyncRequest(
   async (req: Request, res: Response) => {
     const result = await UserServices.updatePassword(req.user.id, req.body);
-
     setCookie(result.accessToken, res);
-
     sendResponse(res, {
       success: true,
       statusCode: 200,
       message: 'Password is changed successfully!',
-      data: result.user,
+      data: result,
     });
   },
 );
+
+
+
 
 // Delete User
 const deleteUser = handleAsyncRequest(async (req: Request, res: Response) => {

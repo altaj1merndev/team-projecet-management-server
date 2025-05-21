@@ -48,8 +48,10 @@ const registerUser = (payload, image) => __awaiter(void 0, void 0, void 0, funct
         // update profile image in payload
         userData.avatar = secure_url;
     }
+    console.log({ userData });
     // Create new user
     const result = yield user_model_1.User.create(userData);
+    console.log({ result });
     return result;
 });
 // Get User Detail
