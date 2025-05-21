@@ -131,16 +131,16 @@ const userSchema = new mongoose_1.Schema({
         },
     },
 });
-// Middleware: Hash password before save
-userSchema.pre('validate', function (next) {
+// Hash password before save
+userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (!this.isModified('password'))
-            return next();
-        this.password = yield (0, bcryptHelper_1.hashPassword)(this.password);
+        if (this.isNew || this.isModified('password')) {
+            this.password = yield (0, bcryptHelper_1.hashPassword)(this.password);
+        }
         next();
     });
 });
-// Middleware: Hash password before update
+// Hash password on update
 userSchema.pre('findOneAndUpdate', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         const update = this.getUpdate();

@@ -91,14 +91,17 @@ const userSchema = new Schema<TUser, UserModel>(
   }
 );
 
-// Middleware: Hash password before save
-userSchema.pre('validate', async function (this: mongoose.Document & TUser, next) {
-  if (!this.isModified('password')) return next();
-  this.password = await hashPassword(this.password);
+
+
+// Hash password before save
+userSchema.pre('save', async function (this: mongoose.Document & TUser, next) {
+  if (this.isNew || this.isModified('password')) {
+    this.password = await hashPassword(this.password);
+  }
   next();
 });
 
-// Middleware: Hash password before update
+// Hash password on update
 userSchema.pre('findOneAndUpdate', async function (next) {
   const update = this.getUpdate() as Record<string, any>;
   if (update?.password) {
