@@ -67,7 +67,7 @@ const getAllProjects = async (query: Record<string, unknown>) => {
   if (query?.assignedTeam) newQuery.assignedTeam = new Types.ObjectId(query.assignedTeam as string);
 
   const projectQuery = new QueryBuilder(
-    Project.find().populate(['sellsBy', 'assignedTeam', 'assignedBy', 'leadBy']),
+    Project.find().populate(['sellsBy', 'assignedTeam', 'assignedBy', 'leadBy', "marketingProfile"]),
     newQuery
   )
     .search(['clientName', 'platfrom', 'marketingProfile']) // Optional search

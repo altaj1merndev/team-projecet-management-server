@@ -82,6 +82,18 @@ cloudinary.config({
       throw new Error('Failed to upload images.');
     }
   };
+  export const deleteImageFromCloudinary = (
+  publicId: string,
+): Promise<UploadApiResponse> => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.destroy(publicId, (error, result) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve(result as UploadApiResponse);
+    });
+  });
+};
 const isProd =  process.env.NODE_ENV === 'production';
   const storage = multer.diskStorage({
     destination: function (req, file, cb) {

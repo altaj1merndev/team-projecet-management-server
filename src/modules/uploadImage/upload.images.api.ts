@@ -9,8 +9,10 @@ const router = Router();
 router.post(
   '/:folder',
   auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT, USER_ROLE.OPERTION , USER_ROLE.SELLS),
-  upload.array('file'),
+   upload.single('file'),
   UploadImageControllers.uploadMultipleImages,
 );
+
+router.post('/', auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT, USER_ROLE.OPERTION , USER_ROLE.SELLS), UploadImageControllers.removeImage);
 
 export const UploadRoutes = router;

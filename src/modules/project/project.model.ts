@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { IProject } from "./project.interface";
 import e from "cors";
+import { ref } from "process";
 
   const ProjectSchema: Schema = new Schema({
     clientName: { type: String, required: true },
@@ -10,12 +11,15 @@ import e from "cors";
     assignedBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     leadBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     deliveryDate: { type: String, required: true },
-    platform: { 
+    platfrom: { 
       type: String,
       enum: ['Fiverr', 'Upwork'],
       required: true,
     },
-    marketingProfile: { type: String },
+    marketingProfile: { type: String,
+      ref: 'MarketingProfile',
+      required: true,
+    },
     projectStatus: {
       type: String,
       enum: ['NRI', 'WIP', 'Hold', 'Cancel'],

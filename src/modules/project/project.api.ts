@@ -4,7 +4,7 @@ import { USER_ROLE } from '../user/auth/auth.constants';
 import { ProjectController } from './project.controllers';
 
 const router = Router();
-router.post('/',auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT),  ProjectController.createProject);
+router.post('/',auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT, USER_ROLE.SELLS, USER_ROLE.OPERTION),  ProjectController.createProject);
 router.get('/', ProjectController.getAllProjects);
 router.get('/:id', ProjectController.getProjectById);
 router.put('/:id', auth(USER_ROLE.ADMIN, USER_ROLE.MANAGEMENT), ProjectController.updateProject);

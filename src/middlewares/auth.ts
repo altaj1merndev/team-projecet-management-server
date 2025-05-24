@@ -48,7 +48,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
       if (user?.userStatus === 'Deactivate') {
         throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked');
       }
-
+console.log({ requiredRoles, role })
       //   // check if the user is authorized for this task/operation
       if (requiredRoles && !requiredRoles.includes(role)) {
         throw new AppError(httpStatus.UNAUTHORIZED, 'Authorization error.');

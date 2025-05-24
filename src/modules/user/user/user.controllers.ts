@@ -8,7 +8,6 @@ import AppError from '../../../errors/AppError';
 
 // Register a User
 const registerUser = handleAsyncRequest(async (req: Request, res: Response) => {
-  console.log(req.body);
 
   const result = await UserServices.registerUser(req.body, req.file);
   sendResponse(res, {
