@@ -5,10 +5,12 @@ import { User } from '../user/user/user.model';
 import { ITeam } from './team.interface';
 import { stringToSlug } from '../../utils/lib/stringToSlug';
 import { Types } from 'mongoose';
+import { Member } from '../member/member.modele';
 
 // ✅ Create a new team
 const createTeam = async (payload: ITeam) => {
   // Check if the team lead exists
+
   const teamLead = await User.findById(payload.teamLead);
   if (!teamLead) {
     throw new AppError(404, 'Team Lead not found!');
@@ -71,13 +73,22 @@ const getAllTeams = async (query: Record<string, unknown>) => {
 
 // ✅ Get team by slug
 const getTeamBySlug = async (slug: string) => {
-  const result = await Team.findOne({ slug }).populate('teamLead');
+  const team = await Team.findOne({ slug }).populate('teamLead');
 
-  if (!result) {
+  if (!team) {
     throw new AppError(404, 'Team not found!');
   }
 
-  return result;
+  const members = await Member.find({ teamId: team._id })
+    .populate({
+      path: 'userId',
+      select: 'userName firstName lastName email phoneNumber avatar designation role userStatus'
+    });
+
+  return {
+    ...team.toObject(),
+    members, // attach members list to the response
+  };
 };
 
 // ✅ Get teams by teamLead

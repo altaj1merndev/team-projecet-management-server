@@ -19,7 +19,6 @@ const setCookie_1 = require("../../../utils/share/setCookie");
 const sendResponse_1 = __importDefault(require("../../../utils/share/sendResponse"));
 // Register a User
 const registerUser = (0, handleAsyncRequest_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const result = yield user_services_1.UserServices.registerUser(req.body, req.file);
     (0, sendResponse_1.default)(res, {
         success: true,

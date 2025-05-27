@@ -13,7 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemberService = void 0;
+const mongoose_1 = require("mongoose");
 const AppError_1 = __importDefault(require("../../errors/AppError"));
+const queryBuilder_1 = __importDefault(require("../../utils/queryBuilder"));
 const member_modele_1 = require("./member.modele");
 // Create a member
 const createMember = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,9 +30,27 @@ const createMember = (payload) => __awaiter(void 0, void 0, void 0, function* ()
     return result;
 });
 // Get all members
-const getAllMembers = () => __awaiter(void 0, void 0, void 0, function* () {
-    const members = yield member_modele_1.Member.find().populate(['userId', 'teamId']);
-    return members;
+const getAllMembers = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const newQuery = {};
+    // Direct field filters
+    if (query === null || query === void 0 ? void 0 : query.memberType)
+        newQuery.memberType = query.memberType;
+    if (query === null || query === void 0 ? void 0 : query.status)
+        newQuery.status = query.status;
+    // References (ObjectIds)
+    if (query === null || query === void 0 ? void 0 : query.userId)
+        newQuery.userId = new mongoose_1.Types.ObjectId(query.userId);
+    if (query === null || query === void 0 ? void 0 : query.teamId)
+        newQuery.teamId = new mongoose_1.Types.ObjectId(query.teamId);
+    const memberQuery = new queryBuilder_1.default(member_modele_1.Member.find().populate(['userId', 'teamId']), newQuery)
+        .search(['memberType', 'status']) // If you want search support
+        .filter()
+        .sort()
+        .paginate()
+        .fieldsLimit();
+    const result = yield memberQuery.modelQuery;
+    const meta = yield memberQuery.countTotal();
+    return { meta, data: result };
 });
 // Get members by teamId
 const getMembersByTeam = (teamId) => __awaiter(void 0, void 0, void 0, function* () {

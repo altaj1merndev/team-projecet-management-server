@@ -85,7 +85,7 @@ const getAllProjects = (query) => __awaiter(void 0, void 0, void 0, function* ()
         newQuery.leadBy = new mongoose_1.Types.ObjectId(query.leadBy);
     if (query === null || query === void 0 ? void 0 : query.assignedTeam)
         newQuery.assignedTeam = new mongoose_1.Types.ObjectId(query.assignedTeam);
-    const projectQuery = new queryBuilder_1.default(project_model_1.Project.find().populate(['sellsBy', 'assignedTeam', 'assignedBy', 'leadBy']), newQuery)
+    const projectQuery = new queryBuilder_1.default(project_model_1.Project.find().populate(['sellsBy', 'assignedTeam', 'assignedBy', 'leadBy', "marketingProfile"]), newQuery)
         .search(['clientName', 'platfrom', 'marketingProfile']) // Optional search
         .filter()
         .sort()

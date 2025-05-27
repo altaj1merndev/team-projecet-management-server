@@ -19,6 +19,7 @@ const queryBuilder_1 = __importDefault(require("../../utils/queryBuilder"));
 const user_model_1 = require("../user/user/user.model");
 const stringToSlug_1 = require("../../utils/lib/stringToSlug");
 const mongoose_1 = require("mongoose");
+const member_modele_1 = require("../member/member.modele");
 // ✅ Create a new team
 const createTeam = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if the team lead exists
@@ -70,11 +71,16 @@ const getAllTeams = (query) => __awaiter(void 0, void 0, void 0, function* () {
 });
 // ✅ Get team by slug
 const getTeamBySlug = (slug) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield team_model_1.Team.findOne({ slug }).populate('teamLead');
-    if (!result) {
+    const team = yield team_model_1.Team.findOne({ slug }).populate('teamLead');
+    if (!team) {
         throw new AppError_1.default(404, 'Team not found!');
     }
-    return result;
+    const members = yield member_modele_1.Member.find({ teamId: team._id })
+        .populate({
+        path: 'userId',
+        select: 'userName firstName lastName email phoneNumber avatar designation role userStatus'
+    });
+    return Object.assign(Object.assign({}, team.toObject()), { members });
 });
 // ✅ Get teams by teamLead
 const getTeamsByTeamLead = (teamLeadId) => __awaiter(void 0, void 0, void 0, function* () {

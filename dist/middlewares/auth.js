@@ -42,6 +42,7 @@ const auth = (...requiredRoles) => {
         if ((user === null || user === void 0 ? void 0 : user.userStatus) === 'Deactivate') {
             throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'This user is blocked');
         }
+        console.log({ requiredRoles, role });
         //   // check if the user is authorized for this task/operation
         if (requiredRoles && !requiredRoles.includes(role)) {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'Authorization error.');

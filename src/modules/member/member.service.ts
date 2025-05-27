@@ -1,4 +1,6 @@
+import { Types } from 'mongoose';
 import AppError from '../../errors/AppError';
+import QueryBuilder from '../../utils/queryBuilder';
 import { IMember } from './member.interface';
 import { Member } from './member.modele';
 
@@ -18,10 +20,33 @@ const createMember = async (payload: IMember) => {
 };
 
 // Get all members
-const getAllMembers = async () => {
-  const members = await Member.find().populate(['userId', 'teamId']);
-  return members;
+const getAllMembers = async (query: Record<string, unknown>) => {
+  const newQuery: Record<string, unknown> = {};
+
+  // Direct field filters
+  if (query?.memberType) newQuery.memberType = query.memberType;
+  if (query?.status) newQuery.status = query.status;
+
+  // References (ObjectIds)
+  if (query?.userId) newQuery.userId = new Types.ObjectId(query.userId as string);
+  if (query?.teamId) newQuery.teamId = new Types.ObjectId(query.teamId as string);
+
+  const memberQuery = new QueryBuilder(
+    Member.find().populate(['userId', 'teamId']),
+    newQuery
+  )
+    .search(['memberType', 'status']) // If you want search support
+    .filter()
+    .sort()
+    .paginate()
+    .fieldsLimit();
+
+  const result = await memberQuery.modelQuery;
+  const meta = await memberQuery.countTotal();
+
+  return { meta, data: result };
 };
+
 
 // Get members by teamId
 const getMembersByTeam = async (teamId: string) => {

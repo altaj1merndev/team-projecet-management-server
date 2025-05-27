@@ -27,8 +27,8 @@ const createMember = (0, handleAsyncRequest_1.default)((req, res) => __awaiter(v
     });
 }));
 // Get All Members
-const getAllMembers = (0, handleAsyncRequest_1.default)((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield member_service_1.MemberService.getAllMembers();
+const getAllMembers = (0, handleAsyncRequest_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield member_service_1.MemberService.getAllMembers(req.query);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: 200,

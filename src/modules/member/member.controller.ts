@@ -15,8 +15,8 @@ const createMember = handleAsyncRequest(async (req: Request, res: Response) => {
 });
 
 // Get All Members
-const getAllMembers = handleAsyncRequest(async (_req: Request, res: Response) => {
-  const result = await MemberService.getAllMembers();
+const getAllMembers = handleAsyncRequest(async (req: Request, res: Response) => {
+  const result = await MemberService.getAllMembers(req.query);
   sendResponse(res, {
     success: true,
     statusCode: 200,
