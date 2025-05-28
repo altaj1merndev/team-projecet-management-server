@@ -18,7 +18,6 @@ const sendResponse_1 = __importDefault(require("../../utils/share/sendResponse")
 const project_services_1 = require("./project.services");
 // ✅ Create project
 const createProject = (0, handleAsyncRequest_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const result = yield project_services_1.ProjectService.createProject(req.body);
     (0, sendResponse_1.default)(res, {
         success: true,

@@ -39,16 +39,17 @@ const ProjectSchema = new mongoose_1.Schema({
     clientName: { type: String, required: true },
     sellsBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
     orderStartDate: { type: String, required: true },
-    assignedTeam: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Team', required: true }],
+    members: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Member', required: true }],
     assignedBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
-    leadBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
+    leadBy: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Member', required: true },
     deliveryDate: { type: String, required: true },
-    platfrom: {
+    platform: {
         type: String,
         enum: ['Fiverr', 'Upwork'],
         required: true,
     },
-    marketingProfile: { type: String,
+    marketingProfile: {
+        type: mongoose_1.Schema.Types.ObjectId, // fixed type
         ref: 'MarketingProfile',
         required: true,
     },
@@ -56,10 +57,10 @@ const ProjectSchema = new mongoose_1.Schema({
         type: String,
         enum: ['NRI', 'WIP', 'Hold', 'Cancel'],
         required: true,
-        default: 'NRI'
+        default: 'NRI',
     },
     orderSheet: { type: String },
-    specialNote: { type: String }
+    specialNote: { type: String },
 }, {
     timestamps: true
 });

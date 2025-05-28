@@ -42,7 +42,7 @@ const createProjectMessage = (payload, io) => __awaiter(void 0, void 0, void 0, 
     // ✅ Create project message
     const message = yield projectMessage_model_1.ProjectMessage.create(payload);
     // ✅ Notify all team members of the project
-    const teamIds = project.assignedTeam || [];
+    const teamIds = project.members || [];
     const members = yield member_modele_1.Member.find({ teamId: { $in: teamIds } });
     members.forEach(user => {
         const socketId = socket_1.onlineUsers.get(user._id.toString());

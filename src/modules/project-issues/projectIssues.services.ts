@@ -10,6 +10,7 @@ import { ProjectIssue } from './projectIssues.model';
 import { onlineUsers } from '../../socket/socket';
 import { Server } from 'socket.io';
 import { Member } from '../member/member.modele';
+
 // const createProjectIssue = async (payload: IProjectIssues) => {
 //   const { projectId, teamId, memberId, marketingProfileId } = payload;
 

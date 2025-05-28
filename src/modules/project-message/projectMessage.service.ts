@@ -32,7 +32,7 @@ const createProjectMessage = async (payload: IProjectMessage, io: Server) => {
   const message = await ProjectMessage.create(payload);
 
   // ✅ Notify all team members of the project
-  const teamIds = project.assignedTeam || [];
+  const teamIds = project.members || [];
   const members = await Member.find({ teamId: { $in: teamIds } });
 
   members.forEach(user => {
