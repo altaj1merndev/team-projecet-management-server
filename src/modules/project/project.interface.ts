@@ -3,7 +3,7 @@ export interface IProject extends Document {
     sellsBy: string; 
     orderStartDate: string;
     assignedBy: string; 
-    assignedTeam: string[]; 
+    members: string[]; 
     leadBy: string; 
     deliveryDate: string;
     platfrom: "Fiverr"| "Upwork"

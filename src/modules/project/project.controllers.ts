@@ -5,7 +5,6 @@ import { ProjectService } from './project.services';
 
 // ✅ Create project
 const createProject = handleAsyncRequest(async (req: Request, res: Response) => {
-  console.log(req.body)
   const result = await ProjectService.createProject(req.body);
   sendResponse(res, {
     success: true,

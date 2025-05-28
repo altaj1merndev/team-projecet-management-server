@@ -10,24 +10,28 @@ import notFound from './middlewares/notFound';
 
 const app: Application = express();
 const allowedOrigins = [
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-  'http://localhost:5173'
+  'http://localhost:5173',
+  "https://project-management-system-softvence.vercel.app"
 
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+    origin: ["https://project-management-system-softvence.vercel.app", 'http://localhost:5173'],
+    // function (origin, callback) {
+    //   if (!origin || allowedOrigins.includes(origin)) {
+    //     callback(null, true);
+    //   } else {
+    //     callback(new Error('Not allowed by CORS'));
+    //   }
+    // },
     credentials: true,
+    allowedHeaders: [
+      'Content-Type', "Authorization" 
+    ]
   }),
 );
+
 
 //parsers(middlewares)
 app.use(express.json());

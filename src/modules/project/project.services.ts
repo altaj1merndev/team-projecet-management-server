@@ -4,44 +4,41 @@ import QueryBuilder from '../../utils/queryBuilder';
 import { IProject } from './project.interface';
 import { Types } from 'mongoose';
 import { User } from '../user/user/user.model';
-import { Team } from '../team/team.model';
+import { MarketingProfile } from '../marketing-profile/marketingProfile.model';
+import { Member } from '../member/member.modele';
 
 const createProject = async (payload: IProject) => {
   // Validate sellsBy
   const sellsByUser = await User.findById(payload.sellsBy);
-  if (!sellsByUser) {
-    throw new AppError(404, 'SellsBy user not found!');
-  }
-  if (sellsByUser.role !== "Sells") {
-    throw new AppError(400, 'SellsBy user must have the role "seller"!');
-  }
+  if (!sellsByUser) throw new AppError(404, 'SellsBy user not found!');
+  if (sellsByUser.role !== "Sells") throw new AppError(400, 'SellsBy user must have the role "seller"!');
 
   // Validate assignedBy
   const assignedByUser = await User.findById(payload.assignedBy);
-  if (!assignedByUser) {
-    throw new AppError(404, 'AssignedBy user not found!');
-  }
-  if (assignedByUser.role !== "Management" ) {
+  if (!assignedByUser) throw new AppError(404, 'AssignedBy user not found!');
+  if (assignedByUser.role !== "Management") {
     throw new AppError(400, 'AssignedBy user must have the role "manager" or "admin"!');
   }
-  // Validate leadBy
-  const leadByUser = await User.findById(payload.leadBy);
-  if (!leadByUser) {
-    throw new AppError(404, 'LeadBy user not found!');
-  }
-  if (leadByUser.role !== "Operation") {
-    throw new AppError(400, 'LeadBy user must have the role "teamLeader"!');
-  }
 
-  // Validate assignedTeam (if present)
-  if (payload.assignedTeam && payload.assignedTeam.length > 0) {
-    const validTeams = await Team.find({ _id: { $in: payload.assignedTeam } });
-    if (validTeams.length !== payload.assignedTeam.length) {
-      throw new AppError(404, 'One or more assigned teams not found!');
+  // Validate leadBy
+  const leadByUser = await Member.findById(payload.leadBy);
+  if (!leadByUser) throw new AppError(404, 'LeadBy user not found!');
+  if (leadByUser.memberType !== "Leader") throw new AppError(400, 'LeadBy user must have the role "teamLeader"!');
+
+  // Validate assigned members (if present)
+  if (payload.members && payload.members.length > 0) {
+    const validTeams = await Member.find({ _id: { $in: payload.members } });
+    if (validTeams.length !== payload.members.length) {
+      throw new AppError(404, 'One or more assigned member not found!');
     }
   }
 
-  // Create project
+  // Validate marketingProfile
+  const profileExists = await MarketingProfile.findById(payload.marketingProfile);
+  if (!profileExists) {
+    throw new AppError(404, 'Marketing Profile not found!');
+  }
+
   const result = await Project.create(payload);
   return result;
 };
@@ -52,8 +49,8 @@ const getAllProjects = async (query: Record<string, unknown>) => {
   // Basic Fields
   if (query?.searchTerm) newQuery.searchTerm = query.searchTerm;
   if (query?.clientName) newQuery.clientName = query.clientName;
-  if (query?.platfrom) newQuery.platfrom = query.platfrom;
-  if (query?.marketingProfile) newQuery.marketingProfile = query.marketingProfile;
+  if (query?.platform) newQuery.platform = query.platform;
+  if (query?.marketingProfile) newQuery.marketingProfile = new Types.ObjectId(query.marketingProfile as string);
   if (query?.projectStatus) newQuery.projectStatus = query.projectStatus;
   if (query?.orderStartDate) newQuery.orderStartDate = query.orderStartDate;
   if (query?.deliveryDate) newQuery.deliveryDate = query.deliveryDate;
@@ -67,10 +64,10 @@ const getAllProjects = async (query: Record<string, unknown>) => {
   if (query?.assignedTeam) newQuery.assignedTeam = new Types.ObjectId(query.assignedTeam as string);
 
   const projectQuery = new QueryBuilder(
-    Project.find().populate(['sellsBy', 'assignedTeam', 'assignedBy', 'leadBy', "marketingProfile"]),
+    Project.find().populate(['sellsBy', 'members', 'assignedBy', 'leadBy', 'marketingProfile']),
     newQuery
   )
-    .search(['clientName', 'platfrom', 'marketingProfile']) // Optional search
+    .search(['clientName', 'platform']) // Removed marketingProfile
     .filter()
     .sort()
     .paginate()
@@ -83,7 +80,7 @@ const getAllProjects = async (query: Record<string, unknown>) => {
 };
 
 const getProjectById = async (id: string) => {
-  const project = await Project.findById(id).populate(['sellsBy', 'assignedTeam', 'assignedBy', 'leadBy']);
+  const project = await Project.findById(id).populate(['sellsBy', 'members', 'assignedBy', 'leadBy', 'marketingProfile']);
   if (!project) throw new AppError(404, 'Project not found!');
   return project;
 };
